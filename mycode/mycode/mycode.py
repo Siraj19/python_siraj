@@ -1,3 +1,7 @@
+import threading
+import time
+import random
+
 def place_value(number): 
     return ("{:,}".format(number))
 
@@ -31,6 +35,12 @@ class company:
         print("   Company Value: ",place_value(self.company_val))
         print("\n")
 
+    def trade_live(self):
+        while True:
+            time.sleep(1)
+            self.price=(self.price/(100+ random.randint(-10,10)))*(100)
+            print("   Current rate: ",format(self.price,".2f"))
+         
 
 company1=company("STN Bank",100,100,100)
 company1.report()
@@ -38,3 +48,5 @@ company1.dividend(5)
 company1.report()
 company1.bonus(900)
 company1.report()
+th = threading.Thread(target=company1.trade_live)
+th.start()
